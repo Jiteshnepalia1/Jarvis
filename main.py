@@ -1,4 +1,11 @@
 # ------------------------------------------------------------------------------------------------------
+# Load Environment Variables
+# ------------------------------------------------------------------------------------------------------
+from dotenv import load_dotenv
+load_dotenv()  # Load variables from .env file into the environment
+
+
+# ------------------------------------------------------------------------------------------------------
 # Standard Library Imports
 # ------------------------------------------------------------------------------------------------------
 import os                                                 # Operating system interaction
@@ -30,7 +37,7 @@ engine = pyttsx3.init()
 engine.setProperty("rate",170)
 
 # Initialize News API client (example using requests or a specific wrapper)
-newsapi = "5305bbbf54e7491795b294022c496121" 
+# newsapi = "5305bbbf54e7491795b294022c496121" 
 
 # Speaks the given text aloud using the text-to-speech engine
 def speak(text):
@@ -39,14 +46,14 @@ def speak(text):
 
 # Function to play a YouTube video based on the user's query
 def play_youtube_video(query):
-    speak(f"Playing {query} on YouTube")   # Announce the video being played
+    speak(f"{query} on YouTube")   # Announce the video being played
     pywhatkit.playonyt(query)              # Use pywhatkit to open and play the video on YouTube
 
 # Function to process user commands using the Groq AI model
 def aiProcess(command):
     # Initialize the Groq client with your API key
     client = Groq(
-    api_key="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"
+    api_key=os.getenv('ai')
     )
 
     # Create a chat completion request with system and user messages
@@ -73,7 +80,7 @@ def weather(command):
                 try:
                     # Initialize Groq client with API key (consider using env vars in real projects)
                     client = Groq(
-                    api_key="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" 
+                    api_key=os.getenv('weather')
                     )
 
                     user_query = command   # Voice command passed as input
@@ -134,7 +141,7 @@ def processCommand(c):
     
     # Handle commands that mention 'news' to fetch top headlines
     elif "news" in c.lower():
-        r = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&apiKey={newsapi}")   # Fetch news
+        r = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&apiKey={os.getenv('newsapi')}")   # Fetch news
         data = r.json()                                # Parse JSON response
         if r.status_code == 200 and data["status"] == "ok":
             articles = data["articles"]                 # Extract articles list
