@@ -1,33 +1,50 @@
 
 # 🧠 Jarvis – AI Voice Assistant
 
-Jarvis is a Python-based voice assistant inspired by popular virtual assistants like Alexa and Google Assistant. It supports voice commands to launch apps, browse websites, fetch news/weather, and interact with LLMs for intelligent responses.
+**Jarvis** is a Python-based voice assistant inspired by virtual assistants like **Alexa** and **Google Assistant**. It uses voice recognition and AI models to execute commands, play YouTube videos, fetch weather/news, launch/close apps, and interact through natural language using the **Groq API** with LLaMA and Compound models.
 
 ---
 
-## 📌 Features
+## 🚀 Features
 
-- 🎙️ Wake word detection (`"Jarvis"`)
-- 🗣️ Speech-to-text & text-to-speech (Google + pyttsx3)
-- 🌐 Open apps and websites via voice
-- 🧠 Smart response via Groq AI (LLaMA & Compound Beta models)
-- 📺 Play YouTube videos
-- ☁️ Get real-time weather updates
-- 📰 Fetch top news headlines
-- ❌ Close apps/webpages with voice
+- 🎙️ Wake-word detection ("Jarvis")
+- 🧠 Natural language understanding via Groq (LLaMA 3.3 & Compound Beta)
+- 📺 Play YouTube videos using `pywhatkit`
+- 🌐 Open and close websites
+- 🖥️ Launch and close desktop apps
+- ☁️ Fetch live weather updates
+- 📰 Read top news headlines using NewsAPI
+- 🔊 Text-to-speech output with `pyttsx3`
+- 🔉 Beep alert before command recognition
+- 🔒 API key protection via `.env` file
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Requirements
 
-| Purpose             | Library/Tool           |
-|---------------------|------------------------|
-| Voice Input         | `speech_recognition`   |
-| Voice Output        | `pyttsx3`              |
-| LLM Interaction     | `Groq`                 |
-| Web Operations      | `webbrowser`, `requests`, `pywhatkit` |
-| Custom Logic        | `apps.py`, `browser.py` |
-| OS Interactions     | `os`, `winsound`       |
+Install all dependencies using pip:
+
+```bash
+pip install -r requirements.txt
+```
+
+**`requirements.txt`** should contain:
+
+```text
+python-dotenv
+speechrecognition
+pyttsx3
+pywhatkit
+requests
+groq
+```
+
+Also install PyAudio (if not already):
+
+```bash
+pip install pipwin
+pipwin install pyaudio
+```
 
 ---
 
@@ -36,84 +53,104 @@ Jarvis is a Python-based voice assistant inspired by popular virtual assistants 
 ```
 Jarvis/
 │
-├── main.py                # Entry point for Jarvis
-├── apps.py                # App path dictionary for launching apps
-├── browser.py             # Website link dictionary
-├── requirements.txt       # List of dependencies
-└── beep2.wav              # Activation sound
+├── apps.py                # Custom dictionary for app paths
+├── browser.py             # Custom dictionary for websites
+├── main.py                # Main assistant script
+├── .env                   # Environment variables (API keys)
+├── beep2.wav              # Beep sound to activate listener
+└── README.md              # Documentation (you are here)
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🔐 .env Configuration
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/yourusername/jarvis-assistant.git
-cd jarvis-assistant
+Create a `.env` file in the project root with the following:
+
+```env
+ai=your_groq_ai_api_key
+weather=your_groq_weather_api_key
+newsapi=your_newsapi_org_key
 ```
 
-### 2. Install dependencies
-```bash
-pip install -r requirements.txt
+> ✅ Do NOT share or commit your API keys publicly. Add `.env` to `.gitignore`.
+
+---
+
+## 🧠 Voice Commands (Examples)
+
+| Command                | Action                                  |
+|------------------------|-----------------------------------------|
+| `Jarvis`               | Wake up the assistant                   |
+| `Open YouTube`         | Opens YouTube in browser                |
+| `Start notepad`        | Launches Notepad from app list          |
+| `Play Imagine Dragons` | Plays YouTube video                     |
+| `What's the weather`   | Gives current weather info              |
+| `News`                 | Reads top headlines                     |
+| `Close notepad`        | Terminates app                          |
+| `Close YouTube`        | Kills browser instance                  |
+| `Who are you?`         | AI-generated response                   |
+
+---
+
+## 🔊 Voice Engine Settings
+
+- **TTS Engine**: `pyttsx3`
+- **Rate**: 170 words per minute
+- **Voice**: Default system voice (customizable)
+
+---
+
+## ⚙️ Custom Modules
+
+### `apps.py`
+```python
+aap_paths = {
+    "notepad": "notepad.exe",
+    "calculator": "calc.exe"
+}
 ```
 
-### 3. Set API Keys
-Edit the following:
-- `newsapi = "<YOUR_NEWS_API_KEY>"`
-- `api_key` in `Groq(...)`
+### `browser.py`
+```python
+wep_page = {
+    "youtube": "https://www.youtube.com",
+    "google": "https://www.google.com"
+}
+```
 
-### 4. Run Jarvis
+> ✅ Expand these files for more sites and apps.
+
+---
+
+## ✅ To Run
+
+Run the assistant from the terminal:
+
 ```bash
 python main.py
 ```
 
----
-
-## 🧪 Example Commands
-
-| Command Example           | Behavior                                 |
-|---------------------------|------------------------------------------|
-| `"Jarvis"`                | Activates the assistant                  |
-| `"Open YouTube"`          | Opens YouTube in default browser         |
-| `"Start Notepad"`         | Launches Notepad                         |
-| `"Play Despacito"`        | Plays the video on YouTube               |
-| `"What's the weather"`    | Fetches weather info using LLM           |
-| `"News"`                  | Reads top headlines                      |
-| `"Close WhatsApp"`        | Terminates the app using taskkill        |
+Ensure your mic and audio output are configured correctly.
 
 ---
 
-## ⚙️ Customization
+## 📢 Notes
 
-- **Apps/Browser Links:** Update `apps.py` and `browser.py` with your own application paths and URLs.
-- **Text-to-Speech Rate:** Adjust via `engine.setProperty("rate", 170)` in `main.py`.
-
----
-
-## 🧩 Dependencies
-
-Add to `requirements.txt`:
-```txt
-pyttsx3
-speechrecognition
-requests
-pywhatkit
-groq
-```
+- Internet connection is required for all API interactions.
+- Use noise-canceling microphones for better recognition.
+- Tune `timeout` and `phrase_time_limit` values in the recognizer for best results.
 
 ---
 
-## 🚧 Known Issues
+## 🛡️ License
 
-- Only works on Windows (`os.system`, `winsound`)
-- Internet required for voice recognition and LLM calls
-- No fallback if wake word is not heard correctly
-- Needs `beep2.wav` in root directory
+This project is licensed under the MIT License.
 
 ---
 
 ## 👨‍💻 Author
 
 **Jitesh Nepalia**  
-**Developed using Python and cutting-edge AI technologies to enhance productivity and automation.**
+_Developer of Jarvis Voice Assistant_  
+Feel free to contribute or suggest improvements!
