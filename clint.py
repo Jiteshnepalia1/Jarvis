@@ -53,28 +53,3 @@ print(chat_completion.choices[0].message.content)
 
 
 
-# from openai import OpenAI
-# client = OpenAI(
-#     api_key="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"
-
-# )
-
-# completion = client.chat.completions.create(
-#     model="gpt-3.5-turbo",
-#     messages=[
-#         {"role": "system", "content": "You are a virtual assistant name jarvis skilled in general tasks like Alexa and Google Cloude"},
-#         {"role": "user", "content": "what is coding"}
-#     ]
-# )
-
-# # Print the response
-# print(completion.choices[0].message.content)
-
-
-
-# response = client.responses.create(
-#     model="gpt-4.1",
-#     input="Write a one-sentence bedtime story about a unicorn."
-# )
-
-# print(response.output_text)
