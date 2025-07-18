@@ -11,4 +11,5 @@ wep_page = {
     "meet" : "https://meet.google.com/landing?hs=197&authuser=0&pli=1", # Google Meet video conferencing
     "notebook" : "https://notebooklm.google.com/?authuser=0&pli=1",     # Google NotebookLM for AI-based note assistance
     "gemini" : "https://gemini.google.com/app?utm_source=app_launcher&utm_medium=owned&utm_campaign=base_all",  # Google Gemini AI assistant
+    "github" : "https://github.com/Jiteshnepalia1/Jarvis/tree/main"     # Link to the GitHub repository
 }
