@@ -170,7 +170,7 @@ def processCommand(c):
             speak(f"{c.lower()} tab.")                # Confirm action
         
         else:
-            # os.system("taskkill /f /im chrome.exe")  # Default: close Chrome
+            os.system("taskkill /f /im chrome.exe")  # Default: close Chrome
             os.system("taskkill /f /im msedge.exe")    # Default: close Edge
             speak(f"{c.lower()} tab.")                 # Confirm fallback action
     
