@@ -37,7 +37,6 @@ engine = pyttsx3.init()
 engine.setProperty("rate",170)
 
 # Initialize News API client (example using requests or a specific wrapper)
-# newsapi = "5305bbbf54e7491795b294022c496121" 
 
 # Speaks the given text aloud using the text-to-speech engine
 def speak(text):
